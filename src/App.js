@@ -30,7 +30,7 @@ function App() {
 
   async function handleRemoveRepository(id) {
 
-    const repository = repositories.find(repositorio => repositorio.id === id)
+    const repository = repositories.find(repositorio => repositorio.id === id);
 
     if(repository) {
       setRepositories(repositories.filter(repositorio => repositorio.id !== repository.id));
