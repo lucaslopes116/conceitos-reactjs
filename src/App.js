@@ -1,6 +1,9 @@
 import React,{ useState, useEffect } from "react";
 import api from './services/api';
 
+import { uuid } from 'uuidv4' ;
+
+
 import "./styles.css";
 
 function App() {
@@ -8,17 +11,31 @@ function App() {
 
   useEffect(()=>{
     api.get('repositories').then((response)=>{
-      console.log('response =>',response);
+      
       setRepositories(response.data);
     })
   },[]);
 
   async function handleAddRepository() {
-    setRepositories([...repositories, `Novo repositorio ${Date.now()}`]);
+    const repository = 
+      {
+        id: uuid(),
+        title:"Desafio ReactJS",
+        url:"https://github.com/lucaslopes116/conceitos-reactjs",
+        techs:"Reactjs"
+      }
+    
+    setRepositories([...repositories, repository]);
   }
 
   async function handleRemoveRepository(id) {
-    // TODO
+
+    const repository = repositories.find(repositorio => repositorio.id === id)
+
+    if(repository) {
+      setRepositories(repositories.filter(repositorio => repositorio.id !== repository.id));
+    }
+    
   }
 
   return (
